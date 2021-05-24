@@ -6,10 +6,14 @@
  .navegador{
      margin-top: 0px;
      background-color: gray;
-     display: flex;
+     display: none;
      list-style: none;
      justify-content: space-between;
      padding: 0px;
+ }
+ .navegador.show{
+     display:flex;
+     flex-direction: column;
  }
  .box-lista{
    list-style: none;
@@ -88,6 +92,14 @@
      }
      .navegador{
          justify-content: space-evenly;
+         margin-top: 0px;
+         background-color: gray;
+         display: flex;
+         list-style: none;
+         padding: 0px;
+     }
+     .showmenu{
+         display:none
      }
      .catalogo-lista{
          display: flex;
