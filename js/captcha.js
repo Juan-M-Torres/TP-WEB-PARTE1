@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function(){
         else{
             resultado.innerHTML = "Captcha incorrecto!"; 
         }
+        setTimeout(limpiarParrafo,3000);
+            
         //Si el resultado del Captcha es igual al numero mostrado en pantalla, que diga "Captcha es correcto", de lo contrario "Captcha es incorrecto"
     }
     document.getElementById("verificar").addEventListener("click", verificarCaptcha);
@@ -23,7 +25,12 @@ document.addEventListener("DOMContentLoaded", function(){
         return numero;
     }
 
+   function limpiarParrafo(){
+       resultado.innerHTML = "";
+       ingreso.value = "";
+       location.reload(true);
 
+   }
 
 })
 
