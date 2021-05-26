@@ -8,19 +8,19 @@ document.addEventListener("DOMContentLoaded", function(){
 
     let ropa = [
         {
-            "prenda": "remera",
+            "prenda": "Remera",
             "precio": 600
         },
         {
-            "prenda": "buzo",
+            "prenda": "Short",
             "precio": 900
         },
         {
-            "prenda": "pantalon",
+            "prenda": "Pantalon",
             "precio": 1000
         },
         {
-            "prenda": "campera",
+            "prenda": "Bolso",
             "precio":  5000
         }
     ];

@@ -67,7 +67,7 @@
  .formularios{
      margin-bottom: 5px;
  }
- 
+
  @media only screen and (min-width: 600px){
      .colum-0,.colum-1,.colum-2{
          display: block;
