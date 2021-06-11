@@ -1,13 +1,15 @@
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function() {
 
-    //agrego variables del dom
-    let tbody = document.getElementById("tbody");
-    let inputPrenda = document.getElementById("ingresoPrenda");
-    let inputPrecio = document.getElementById("ingresoPrecio");
-    let tFoot = document.getElementById("tfoot");
+    //Tabla
+    document.querySelector("#boton-agregar").addEventListener("click", botonAgregar);
+    document.querySelector("#boton-vaciar").addEventListener("click", botonVaciar);
+    document.querySelector("#boton-agregarX3").addEventListener("click", botonAgregarX3)
 
-    let ropa = [
-        {
+    let listadoom = document.querySelector("#tbody");
+    let producto = document.querySelector("#ingresoPrenda");
+    let precio = document.querySelector("#ingresoPrecio");
+
+    let ropa = [{
             "prenda": "Remera",
             "precio": 600
         },
@@ -21,86 +23,60 @@ document.addEventListener("DOMContentLoaded", function(){
         },
         {
             "prenda": "Bolso",
-            "precio":  5000
+            "precio": 5000
         }
     ];
 
 
-    function cargarTabla(){
-        let trFoot = document.createElement("tr");
-        let td1Foot = document.createElement("td");
-        let td2Foot = document.createElement("td");
-        let total = sumarTotal();
-        let porcentaje = 0.15;
-        limpiarTabla();
-        for (let items of ropa) {
-            let nodoTr = document.createElement("tr");
-            let nodoTd1 = document.createElement("td");
-            let nodoTd2 = document.createElement("td");
-            nodoTd1.innerHTML = items.prenda;
-            nodoTd2.innerHTML = "$"+items.precio;
-            nodoTr.appendChild(nodoTd1);
-            nodoTr.appendChild(nodoTd2);
-            tbody.appendChild(nodoTr);
+    function botonAgregar() {
+        if (producto.value != "" && precio.value > 0) {
+            let ProductoNuevo = {
+                "prenda": producto.value,
+                "precio": precio.value,
+            }
+            ropa.push(ProductoNuevo);
+            cargarTabla();
         }
-        if(total >=10000){
-            trFoot.className = "alert alert-success";
-            td1Foot.innerHTML = "El total de la compra con descuento es: ";
-            td2Foot.innerHTML = (total-(total*porcentaje));
-        }else{
-            trFoot.className = "alert alert-info";
-            td1Foot.innerHTML = "La suma total de la compra es: ";
-            td2Foot.innerHTML = total;
-        }
-       
-        trFoot.appendChild(td1Foot);
-        trFoot.appendChild(td2Foot);
-        tFoot.appendChild(trFoot);
     }
 
-    
-    function agregarElemento(){
-    
-        let ingresoRopa = {
-            "prenda": inputPrenda.value,
-            "precio": inputPrecio.value
-        };
-
-        ropa.push(ingresoRopa);
-        cargarTabla();
+    function limpiarTabla() {
+        listadoom.innerHTML = "";
     }
 
-    function vaciarTabla(){
+    function botonVaciar() {
         ropa = [];
         cargarTabla();
     }
 
-
-    function limpiarTabla() {
-        tbody.innerHTML = "";
-        tFoot.innerHTML = "";
-    }
-
-    function agregarTresElementos(){
-        for(let i=0; i<=2; i++){
-            agregarElemento();
+    function botonAgregarX3() {
+        for (let i = 0; i <= 2; i++) {
+            botonAgregar();
         }
     }
 
 
-    function sumarTotal(){
-        let suma = 0;
-        for(let items of ropa){
-            suma+= parseInt(items.precio);
+    function cargarTabla() {
+        limpiarTabla()
+        let porcentaje = 0.15;
+        for (let items of ropa) {
+            let nodoTr = document.createElement("tr");
+            let nodoTd1 = document.createElement("td");
+            let nodoTd2 = document.createElement("td");
+            if (items.precio >= 6000) {
+                nodoTr.classList.add("promocion");
+                nodoTd1.innerHTML = items.prenda;
+                nodoTd2.innerHTML = "$" + (items.precio - (items.precio * porcentaje));
+            } else {
+                nodoTd1.innerHTML = items.prenda;
+                nodoTd2.innerHTML = "$" + items.precio;
+            }
+            nodoTr.appendChild(nodoTd1);
+            nodoTr.appendChild(nodoTd2);
+            listadoom.appendChild(nodoTr);
         }
-        return suma;
+
     }
 
-    document.getElementById("boton-agregarX3").addEventListener("click", agregarTresElementos);
-    document.getElementById("boton-vaciar").addEventListener("click", vaciarTabla);
-    document.getElementById("boton-agregar").addEventListener("click", agregarElemento);
+
     cargarTabla();
-
-
-
 })
